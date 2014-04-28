@@ -31,6 +31,10 @@ public class MyDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNum = getArguments().getInt("num");
+        
+        int style = DialogFragment.STYLE_NORMAL;
+        int theme = android.R.style.Theme_Holo_Light_Dialog;
+        setStyle(style, theme);
     }
 
     @Override

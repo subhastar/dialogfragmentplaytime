@@ -1,10 +1,13 @@
 package com.subha.modals;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -41,6 +44,22 @@ public class MainActivity extends FragmentActivity {
 	    // Create and show the dialog.
 	    DialogFragment newFragment = MyDialogFragment.newInstance(mStackLevel);
 	    newFragment.show(ft, "dialog");
+	    getSupportFragmentManager().executePendingTransactions();
+	    
+	    prettifyDialog(newFragment);
+	}
+	
+	// This method fixes up the dimensions of the dialog and appropriately sets the title
+	private void prettifyDialog(DialogFragment dialogFragment) {
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		int width = metrics.widthPixels;
+		int height = metrics.heightPixels;
+		Dialog dialog = dialogFragment.getDialog();
+		Log.d("subha", "is dialog null? " + dialog);
+		Log.d("subha", "is window null? " + dialog.getWindow());
+		dialog.getWindow().setLayout((4 * width)/ 5, (4 * height)/ 5);
+		
+		dialog.setTitle("Add a new run.");
 	}
 	
 	public void callback() {
